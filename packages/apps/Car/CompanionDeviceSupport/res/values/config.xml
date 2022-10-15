@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2019 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Feature ids -->
+    <string name="connection_howitzer_feature_id" translatable="false">b75d6a81-635b-4560-bd8d-9cdf83f32ae7</string>
+    <string name="calendar_sync_feature_id" translatable="false">5a1a16fd-1ebd-4dbe-bfa7-37e40de0fd80</string>
+    <string name="trusted_device_feature_id" translatable="false">85dff28b-3036-4662-bb22-baa7f898dc47</string>
+    <string name="notification_msg_feature_id" translatable="false">b2337f58-18ff-4f92-a0cf-4df63ab2c889</string>
+
+    <!-- Trusted Device configs  -->
+    <string name="trusted_device_channel_id" translatable="false">c1f9f3cc-79dc-4465-bad0-da1ce413cf0b</string>
+
+
+    <!-- Platform values -->
+
+    <!-- These values must be modified for the Companion Device to function properly.-->
+    <string name="car_service_uuid" translatable="false">00000000-0000-0000-0000-000000000000</string>
+    <string name="car_association_service_uuid" translatable="false">00000000-0000-0000-0000-000000000000</string>
+    <string name="car_reconnect_service_uuid" translatable="false">00000000-0000-0000-0000-000000000000</string>
+    <string name="car_reconnect_data_uuid" translatable="false">00000000-0000-0000-0000-000000000000</string>
+    <string name="car_bg_mask" translatable="false">00000000000000000000000000000000</string>
+
+    <string name="car_secure_read_uuid" translatable="false">5e2a68a6-27be-43f9-8d1e-4546976fabd7</string>
+    <string name="car_secure_write_uuid" translatable="false">5e2a68a5-27be-43f9-8d1e-4546976fabd7</string>
+
+    <string name="connected_device_shared_preferences" translatable="false">com.android.car.connecteddevice</string>
+
+    <string name="car_spp_service_uuid_secure" translatable="false">00000000-0000-0000-0000-000000000000</string>
+    <string name="car_spp_service_uuid_insecure" translatable="false">00000000-0000-0000-0000-000000000000</string>
+
+    <bool name="enable_secure_rfcomm_channel">true</bool>
+    <bool name="enable_spp_support">false</bool>
+    <!--
+    This value must be between 23 and 185. 23 is the default MTU size for Android, and 185 is
+    the max MTU size supported for iOS. Verify your device and target companion devices support a
+    larger MTU prior to modifying.
+    -->
+    <integer name="car_default_mtu_size">23</integer>
+
+    <!-- Max bytes per packet when using SPP -->
+    <integer name="car_max_spp_packet_bytes">700</integer>
+</resources>

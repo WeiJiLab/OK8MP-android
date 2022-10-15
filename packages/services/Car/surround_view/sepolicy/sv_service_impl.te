@@ -1,0 +1,28 @@
+# surround view default service implementation
+type sv_service_impl, domain;
+
+hal_server_domain(sv_service_impl, hal_evs)
+hal_client_domain(sv_service_impl, hal_evs)
+
+# allow init to launch processes in this context
+type sv_service_impl_exec, exec_type, file_type, vendor_file_type;
+init_daemon_domain(sv_service_impl)
+binder_use(sv_service_impl)
+
+hal_client_domain(sv_service_impl, hal_vehicle)
+hal_client_domain(sv_service_impl, hal_graphics_allocator)
+
+allow sv_service_impl hwservicemanager_prop:file { read open getattr map };
+allow sv_service_impl hwservicemanager:binder { call transfer };
+allow sv_service_impl hal_evs_driver:binder { call };
+allow sv_service_impl hal_vehicle_default:binder { call };
+allow sv_service_impl hal_evs_hwservice:hwservice_manager { find };
+allow sv_service_impl hal_vehicle_hwservice:hwservice_manager { find };
+allow sv_service_impl hal_graphics_allocator_default:binder { call };
+allow sv_service_impl hal_graphics_allocator_default:fd { use };
+allow sv_service_impl ion_device:chr_file { read open ioctl };
+allow sv_service_impl gpu_device:chr_file { read open write ioctl };
+allow sv_service_impl hal_graphics_mapper_hwservice:hwservice_manager { find };
+allow sv_service_impl hal_graphics_allocator_hwservice:hwservice_manager { find };
+allow sv_service_impl hal_configstore_default:binder { call };
+allow sv_service_impl opencl_cache_file:dir { search };

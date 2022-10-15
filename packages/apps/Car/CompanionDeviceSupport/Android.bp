@@ -1,0 +1,127 @@
+//
+// Copyright (C) 2019 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+android_library {
+    name: "CompanionDeviceSupport-aidl",
+
+    srcs: [
+        "src/com/android/car/companiondevicesupport/api/**/*.java",
+        "src/com/android/car/companiondevicesupport/api/**/I*.aidl",
+    ],
+
+    manifest: "AndroidManifest_empty.xml",
+
+    resource_dirs: [],
+
+    sdk_version: "system_current",
+    min_sdk_version: "28",
+
+    static_libs: [
+        "connected-device-lib",
+    ],
+
+    aidl: {
+        local_include_dirs: [
+            "src/com/android/car/companiondevicesupport/api",
+        ],
+    },
+}
+
+android_library {
+    name: "CompanionDeviceSupport-lib",
+
+    srcs: [
+        "src/**/*.java",
+    ],
+
+    exclude_srcs: [
+        "src/com/android/car/companiondevicesupport/api/**/*.java",
+        "src/com/android/car/companiondevicesupport/api/**/I*.aidl",
+    ],
+
+    manifest: "AndroidManifest_empty.xml",
+
+    resource_dirs: ["res"],
+
+    sdk_version: "system_current",
+    min_sdk_version: "28",
+
+    optimize: {
+        enabled: false,
+    },
+
+    libs: [
+        "android.car-system-stubs",
+    ],
+
+    static_libs: [
+        "CompanionDeviceSupport-aidl",
+        "CompanionDeviceSupport-proto",
+        "androidx-constraintlayout_constraintlayout",
+        "androidx-constraintlayout_constraintlayout-solver",
+        "androidx.lifecycle_lifecycle-common-java8",
+        "androidx.lifecycle_lifecycle-extensions",
+        "androidx.room_room-runtime",
+        "car-messenger-common",
+        "car-messenger-protos",
+        "car-ui-lib",
+        "com.google.android.material_material",
+        "companion-feature-calendarsync-protos",
+        "connected-device-lib",
+        "encryption-runner",
+    ],
+
+    plugins: [
+        "androidx.room_room-compiler-plugin",
+    ],
+}
+
+android_app {
+    name: "CompanionDeviceSupport",
+
+    sdk_version: "system_current",
+    min_sdk_version: "28",
+    target_sdk_version: "28",
+
+    certificate: "platform",
+
+    privileged: true,
+
+    static_libs: [
+        "CompanionDeviceSupport-aidl",
+        "CompanionDeviceSupport-lib",
+    ],
+
+    manifest: "AndroidManifest.xml",
+
+    resource_dirs: [],
+
+    optimize: {
+        enabled: false,
+    },
+
+    dex_preopt: {
+        enabled: false,
+    },
+
+    product_variables: {
+        pdk: {
+            enabled: false,
+        },
+    },
+
+    required: ["privapp_whitelist_com.android.car.companiondevicesupport"]
+}
