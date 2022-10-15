@@ -1,0 +1,95 @@
+cc_library_shared {
+    name: "lib_imx_c2_videodec_common",
+
+    srcs: [
+        "VideoDecoderBase.cpp",
+    ],
+
+    include_dirs: [
+	"hardware/libhardware/include",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",    
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "lib_imx_c2_componentbase",
+        "libion",
+        "libcodec2_vndk",
+    ],
+
+    whole_static_libs: ["libionallocator"],
+
+    export_include_dirs: ["."],
+
+    defaults: [
+        "imx_defaults",
+        "imx_mm_common_default",
+        "imx_codec2_default",
+    ],
+}
+
+
+cc_library_shared {
+    name: "lib_imx_c2_videodec",
+
+    srcs: [
+        "IMXC2VideoDecoder.cpp",
+    ],
+
+    include_dirs: [
+        "frameworks/av",
+        "hardware/libhardware/include",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",    
+        "vendor/nxp/imx_android_mm/codec2/video_dec/common",
+        "frameworks/av/media/codec2/components/base/include",
+        "vendor/nxp/imx_android_mm/codec2/include",
+        "vendor/nxp/imx_android_mm/codec2/base/include",
+        "vendor/nxp/imx_android_mm/codec2/process/common",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "lib_imx_c2_componentbase",
+        "lib_imx_c2_videodec_common",
+        "libcodec2_vndk",
+        "lib_c2_imx_store",
+        "lib_imx_c2_process",
+        "libsfplugin_ccodec_utils",
+    ],
+
+
+    export_include_dirs: ["."],
+
+    defaults: [
+        "imx_defaults",
+        "imx_mm_common_default",
+        "imx_c2_video_dec_default",
+    ],
+}

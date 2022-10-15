@@ -1,0 +1,26 @@
+imx_c2_audio_dec_defaults {
+    name: "imx_c2_audio_dec_default",
+}
+
+
+bootstrap_go_package {
+    name: "soong-audio_dec",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/audio_dec",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "audio_dec.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+subdirs = [
+    "common",
+    "aac_dec",
+]

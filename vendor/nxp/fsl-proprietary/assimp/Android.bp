@@ -1,0 +1,15 @@
+/*
+cc_prebuilt_library_static {
+    name: "libassimp",
+    vendor_available: true,
+    compile_multilib: "64",
+    srcs: ["lib64/libassimp.a"]
+}
+*/
+cc_prebuilt_library_shared {
+    name: "libassimp",
+    compile_multilib: "64",
+    srcs: ["lib64/libassimp.so"],
+    check_elf_files: false,
+    shared_libs: ["libc", "libdl", "libm"],
+}

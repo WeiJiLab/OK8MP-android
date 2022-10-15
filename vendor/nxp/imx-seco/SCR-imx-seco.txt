@@ -1,0 +1,14 @@
+NXP Software Content Register
+
+--------------------------------------------
+
+Package:                   imx-seco-*.bin
+Outgoing License:          LA_OPT_NXP_Software_License - Production Use, Section 2.3 applies
+License File:              COPYING
+Package Category:          BSP
+Type of content:           Binaries
+Description and comments:  SECO BSP firmware
+Release Location:          i.MX Yocto Project mirror
+Origin:                    NXP (proprietary)
+
+--------------------------------------------

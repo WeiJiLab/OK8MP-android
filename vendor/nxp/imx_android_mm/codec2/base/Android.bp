@@ -1,0 +1,44 @@
+cc_library_shared {
+    name: "lib_imx_c2_componentbase",
+
+    srcs: [
+        "IMXC2ComponentBase.cpp",
+        "IMXC2Interface.cpp",
+        "IMXUtils.cpp",
+    ],
+
+    include_dirs: [
+        "hardware/libhardware/include",
+        "frameworks/av/media/libstagefright",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",    
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+        "vendor/nxp/imx_android_mm/extractor",
+        "system/core/include/system",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "libcodec2_vndk",
+    ],
+
+    export_include_dirs: [
+        "include",
+    ],
+
+
+    defaults: [
+        "imx_defaults",
+    ],
+}

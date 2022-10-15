@@ -1,0 +1,25 @@
+imx_c2_video_enc_defaults {
+    name: "imx_c2_video_enc_default",
+}
+
+
+bootstrap_go_package {
+    name: "soong-video_enc",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/video_enc",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "video_enc.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+subdirs = [
+    "*",
+]

@@ -1,0 +1,96 @@
+
+Change log:
+
+ver 1.0.68:
+  add check to return value of function
+
+ver 1.0.67:
+  add several double check to invalid or null value
+
+ver 1.0.66:
+  fix h263 encoder failure issue due to invalid frame rate
+
+ver 1.0.65:
+  fix vpu hange issue caused by non-supported vc1 clip
+
+ver 1.0.64:
+  fix some potential issues, include memory leak and uninitialized variable
+
+ver 1.0.63:
+  fix special clips in which there are two different SPS headers before the first frame
+
+ver 1.0.62:
+  add check for invalid frame rate
+
+ver 1.0.61:
+  enable resolution change report for vp8 and H.263
+
+ver 1.0.60:
+  fix the inaccurate crop info for vp8
+
+ver 1.0.59:
+  handle the special gop size in order to pass some CTS tests in which large gopsize will be set
+  
+ver 1.0.58:
+  fix one potential risk where encoder may crash at close stage in multi-instance case
+  
+ver 1.0.57:
+  fix bug for clips with resolution change in which one internal variable need to be cleared.
+
+ver 1.0.56:
+  re-enable detection of resolution change due to the latest FW
+
+ver 1.0.55:
+  fix bug for resolution change in loop play
+  add workaround for rmvb decode timeout issue when no enough frame buffer
+
+ver 1.0.54:
+  revert detection of resolution change(bit20) since vpu may report resolution change wrong for corrupted clips.
+
+ver 1.0.53:
+  add detecting of resoluton change(bit20)
+  fix bug of eos condition in multi-instance
+  
+ver 1.0.52:
+  For corrupted clips with only one frame, we will report error instead of eos
+  
+ver 1.0.51:
+  modify the checking of return value from IOGetVirtMem
+
+ver 1.0.50:
+  add support for nal_size_length is equal to 1 or 2
+  fix bug in detecting of illegal memory access
+  fix bug related with conflict buffer state
+
+ver 1.0.49:
+  add config for intra refresh mode
+  enhance avcc conversion for corrupted clips
+  change deblock related parameter to improve encode quality
+  config stuff padding(disable) for mjpeg encoder
+
+ver 1.0.48:
+  enhace the robust in avcc conversion operation for corrupted clips
+  add api to query the available frame buffer number in decoder
+  code refine, fix some typo error
+
+ver 1.0.47:
+  add one workaround to fix AVC decoder no frame issue
+
+ver 1.0.46:
+  add debug code to detect illegal memory access
+
+ver 1.0.45:
+  add avcc format for H.264 decoder
+
+ver 1.0.44:
+  add avcc format for H.264 encoder
+
+ver 1.0.43:
+  add workaround to fix vp8 buffer conflict issue: buffer is decoded repeatedly
+
+ver 1.0.42:
+  add workaround to fix VC1 decode failure issue: flush before the first frame is decoded
+
+ver 1.0.41:
+  enhance encoder part: add qp related configuration
+

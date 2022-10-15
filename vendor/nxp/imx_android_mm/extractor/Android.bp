@@ -1,0 +1,79 @@
+imxextractor_defaults {
+    name: "imxextractor_default",
+}
+
+
+bootstrap_go_package {
+    name: "soong-imxextractor",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/extractor",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "imxextractor.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_library_shared {
+
+    name: "libimxextractor",
+
+    defaults: [
+        "imxextractor_default",
+    ],
+
+    srcs: [
+        "ImxExtractor.cpp",
+        "ImxInspector.cpp",
+    ],
+
+    header_libs: [
+        "libmedia_headers",
+        "libstagefright_headers",
+        "libstagefright_foundation_headers",
+    ],
+	
+    include_dirs: [
+        "frameworks/av/include/media",
+		"frameworks/av/include",
+		"frameworks/av/media/libstagefright/include",
+	    "vendor/nxp/fsl-codec/ghdr/common",
+    ],
+
+    shared_libs: [
+        "liblog",
+		"libutils",
+		"libcutils",
+        "libmediandk",
+		"libstagefright_foundation",
+    ],
+
+    whole_static_libs: [
+        "libstagefright_metadatautils",
+    ],
+
+    cflags: [
+        "-Werror",
+        "-Wall",
+        "-fvisibility=hidden",
+    ],
+    version_script: "exports.lds",
+    relative_install_path: "extractors",
+    compile_multilib: "first",
+	
+    sanitize: {
+        cfi: true,
+        misc_undefined: [
+            "unsigned-integer-overflow",
+            "signed-integer-overflow",
+        ],
+    },
+//    vendor: true
+}
+

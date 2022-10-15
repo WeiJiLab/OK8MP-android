@@ -1,0 +1,96 @@
+cc_library_shared {
+    name: "libcodec_enc",
+
+    defaults: [
+        "IMX_VPU_ENC_DEFAULTS",
+        "IMX_VPU_G1_CFLAGS",
+    ],
+
+    cflags: [
+        "-DENCH1",
+        "-DOMX_ENCODER_VIDEO_DOMAIN",
+        "-DH1V6",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    srcs: [
+        "encoder/encoder_h264.c",
+        "encoder/encoder_vp8.c",
+        "OSAL.c",
+    ],
+
+    local_include_dirs: [
+        "encoder",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libhantro_h1",
+    ],
+
+    vendor: true,
+}
+
+cc_library_shared {
+    name: "libcodec",
+
+    srcs: [
+        "decoder/codec_hevc.c",
+        "decoder/codec_vp9.c",
+        "decoder/codec_h264.c",
+        "decoder/codec_avs.c",
+        "decoder/codec_jpeg.c",
+        "decoder/codec_mpeg2.c",
+        "decoder/codec_mpeg4.c",
+        "decoder/codec_rv.c",
+        "decoder/codec_vc1.c",
+        "decoder/codec_vp8.c",
+        "decoder/codec_webp.c",
+        "decoder/codec_vp6.c",
+        "OSAL.c",
+        "decoder/test/queue.c",
+    ],
+
+    defaults: [
+        "IMX_VPU_DEC_DEFAULTS",
+    ],
+
+    cflags: [
+        "-DSET_OUTPUT_CROP_RECT",
+        "-DUSE_EXTERNAL_BUFFER",
+        "-DUSE_OUTPUT_RELEASE",
+        "-DVSI_API",
+        "-DIS_G1_DECODER",
+        "-DENABLE_CODEC_VP8",
+        "-DVP8_HWTIMEOUT_WORKAROUND",
+        "-DENABLE_CODEC_MJPEG",
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DDOWN_SCALER",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    local_include_dirs: [
+        "decoder",
+        "decoder/test",
+    ],
+
+    shared_libs: [
+        "libhantro",
+        "liblog",
+        "libutils",
+        "libg1",
+    ],
+
+    vendor: true,
+}

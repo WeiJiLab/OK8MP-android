@@ -1,0 +1,55 @@
+{
+  "?supported components" : [ "NativeSensor", "NativeDewarp", "LocalDisplay", "V4l2Control", "FakeSource" ],
+
+  "using components" : [
+    {
+        "classname" : "NativeSensor",
+        "id" : "sensor0",
+        "isp.index" : 0
+    },
+    {
+      "classname" : "NativeDewarp", 
+      "id" : "dewarp",
+      "?dewarpMode": "LENS_CORRECTION, FISHEYE_EXPAND, SPLIT_SCREEN",
+      "dewarpMode": "LENS_CORRECTION",
+      "scale": {
+        "roix": 0,
+        "roiy": 0,
+        "factor": 1.0
+      },
+      "split": {
+        "horizon_line": 540,
+        "vertical_line_up": 960,
+        "vertical_line_down": 960
+      },
+      "camera_matrix":  [ 1.8942611548848731e+003, 0., 9.6374742321499275e+002, 0., 1.8942611548848731e+003, 5.4551126538131984e+002, 0., 0., 1.],
+      "distortion_coeff": [ -3.4128998805044330e-001, 2.1666331475061271e-001, -7.2202592099147877e-004, 4.0721796212535126e-004, -1.2702077380492385e-001, 0.0, 0.0, 0.0],
+      "perspective": [ 1.0, 0, 0,   0, 1, 0,   0, 0, 1],
+      "bypass" :false ,
+      "hflip" : false
+    },
+    {
+      "classname" : "V4l2Control",
+      "id" : "v4l2"
+    }
+  ],
+  "streams" : [
+    {
+        "links" : [
+          { "prev" : "sensor0", "srcpad" : 0, "next" : "dewarp", "sinkpad": 0 },
+          { "prev" : "dewarp", "srcpad" : 0, "next" : "v4l2", "sinkpad": 0 }
+        ],
+        "caps" : {
+          "availableStreamConfigurations" : [
+            ["YUV420SP", 1280, 720],
+            ["YUV420SP", 1920, 1080],
+            ["YUV422SP", 1280, 720],
+            ["YUV422SP", 1920, 1080],
+            ["YUV422I", 1280, 720],
+            ["YUV422I", 1920, 1080],
+            ["YUV422I", 3840, 2160]
+          ]
+        }
+    }
+  ]
+}

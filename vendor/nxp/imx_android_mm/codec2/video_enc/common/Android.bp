@@ -1,0 +1,92 @@
+cc_library_shared {
+    name: "lib_imx_c2_videoenc_common",
+
+    srcs: [
+        "VideoEncoderBase.cpp",
+    ],
+
+    include_dirs: [
+        "hardware/libhardware/include",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",    
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "lib_imx_c2_componentbase",
+        "libion",
+        "libcodec2_vndk",
+    ],
+
+    whole_static_libs: ["libionallocator"],
+
+    export_include_dirs: ["."],
+
+    defaults: [
+        "imx_defaults",
+        "imx_codec2_default",
+    ],
+}
+
+
+cc_library_shared {
+    name: "lib_imx_c2_videoenc",
+
+    srcs: [
+        "IMXC2VideoEncoder.cpp",
+    ],
+
+    include_dirs: [
+        "frameworks/av",
+        "hardware/libhardware/include",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",
+        "vendor/nxp/imx_android_mm/codec2/include",
+        "vendor/nxp/vpu_wrapper",
+        "vendor/nxp/imx_android_mm/codec2/process/common",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "lib_imx_c2_componentbase",
+        "lib_imx_c2_videoenc_common",
+        "lib_imx_c2_process",
+        "libcodec2_vndk",
+        "lib_c2_imx_store",
+        "libsfplugin_ccodec_utils",
+    ],
+
+
+    export_include_dirs: ["."],
+
+    defaults: [
+        "imx_defaults",
+        "imx_mm_common_default",
+        "imx_c2_video_enc_default",
+    ],
+}

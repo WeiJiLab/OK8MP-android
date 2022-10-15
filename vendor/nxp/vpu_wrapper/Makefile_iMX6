@@ -1,0 +1,64 @@
+
+PROGRAM=test_dec_arm_elinux
+ENC_PROGRAM=test_enc_arm_elinux
+LIBRARY=./release/lib/lib_vpu_wrapper
+
+CC ?= gcc
+LN ?= $(CC)
+AS ?= as
+AR ?= =ar
+
+
+CFLAGS= -O2 -Wall
+INCLUDES= -I. -I$(SDKTARGETSYSROOT)/usr/include -I/opt/fsl-imx-xwayland/5.4-zeus/sysroots/aarch64-poky-linux/usr/include -I/usr/include
+
+AFLAGS=
+
+LFLAGS=-lvpu -lipu -lpthread -lm -ldl
+
+
+#CFLAGS+=-DUSE_VPU_WRAPPER_TIMER
+#CFLAGS+=-DVPU_WRAPPER_DEBUG
+CFLAGS+=-DDEC_STREAM_DEBUG
+CFLAGS+=-DENC_STREAM_DEBUG
+CFLAGS+=-DAPP_DEBUG
+CFLAGS+=-DFB_RENDER_DEBUG
+
+LIB_OBJS=vpu_wrapper.o vpu_wrapper_timer.o
+LIB_OBJS +=utils.o
+APP_OBJS=test_dec_arm_elinux.o decode_stream.o
+APP_OBJS+=fb_render.o
+
+ENC_APP_OBJS=test_enc_arm_elinux.o encode_stream.o
+
+all: EXE ENC_EXE
+	@echo "--- Build-all done for vpu wrapper ---"
+
+LIBRARY: $(LIB_OBJS)
+	mkdir -p ./release/lib
+	$(AR) -r $(LIBRARY).a $(LIB_OBJS)
+	$(LN) -o $(LIBRARY).so --shared -fpic $(LIB_OBJS)
+	#$(LN) -o $(LIBRARY).so -shared -nostartfiles $(LIB_OBJS)
+
+EXE: $(APP_OBJS) LIBRARY
+	$(LN) -o $(PROGRAM) $(LFLAGS) $(APP_OBJS) $(LIBRARY).a
+
+ENC_EXE: $(ENC_APP_OBJS) LIBRARY
+	$(LN) -o $(ENC_PROGRAM) $(LFLAGS) $(ENC_APP_OBJS) $(LIBRARY).a
+
+
+%.o: %.c
+	#$(CC) $(CFLAGS) $(INCLUDES)  -c  -o $@ $<
+	$(CC) -fPIC $(CFLAGS) $(INCLUDES)  -c  -o $@ $<
+
+
+clean:
+	rm -rf $(LIB_OBJS)
+	rm -rf $(APP_OBJS)
+	rm -rf $(ENC_APP_OBJS)
+	rm -rf $(LIBRARY).a
+	rm -rf $(LIBRARY).so
+	rm -rf $(PROGRAM)
+	rm -rf $(ENC_PROGRAM)
+
+

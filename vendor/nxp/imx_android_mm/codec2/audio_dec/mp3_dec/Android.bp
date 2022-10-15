@@ -1,0 +1,47 @@
+cc_library_shared {
+    name: "lib_c2_imx_mp3_dec",
+
+    srcs: [
+        "Mp3DecodeUtil.cpp",
+    ],
+
+    include_dirs: [
+        "vendor/nxp/imx_android_mm/codec2/base/include",
+        "vendor/nxp/imx_android_mm/codec2/include",
+        "vendor/nxp/fsl-codec/ghdr/common",
+        "system/core/include",
+        "hardware/libhardware/include",
+        "frameworks/av/media/libstagefright/include",
+        "frameworks/av/media/codec2/core/include",
+    ],
+
+    local_include_dirs: [
+        ".",
+    ],
+
+    export_include_dirs: [
+        ".",
+    ],
+
+    header_libs: [
+        "libsystem_headers",
+    ],
+
+    shared_libs: [
+        "lib_c2_imx_audio_dec_common",
+        "lib_imx_c2_componentbase",
+        "liblog",
+        "libcodec2_vndk",
+        "libstagefright_foundation",
+        "lib_c2_imx_store",
+        "libcutils",
+    ],
+
+    ldflags: ["-Wl,-Bsymbolic"],
+
+    defaults: [
+        "imx_defaults",
+        "imx_c2_audio_dec_default",
+    ],
+    //compile_multilib: "32",
+}

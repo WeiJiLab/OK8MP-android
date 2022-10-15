@@ -1,0 +1,56 @@
+imx_c2_vpuwrapper_enc_defaults {
+    name: "imx_c2_vpuwrapper_enc_default",
+}
+
+
+bootstrap_go_package {
+    name: "soong-vpuwrapper_enc",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/video_enc/vpuwrapper_enc",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "vpuwrapper_enc.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_library_shared {
+    name: "lib_imx_c2_vpuwrapper_enc",
+
+    defaults: [
+        "imx_c2_vpuwrapper_enc_default",
+        "imx_defaults",
+    ],
+
+    include_dirs: [
+        "frameworks/av",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp/vpu_wrapper",
+        "vendor/nxp/imx_android_mm/codec2/video_enc/common",
+        "vendor/nxp/imx_android_mm/codec2/tsm",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "lib_vpu_wrapper",
+        "libcodec2",
+        "libcodec2_vndk",
+        "libstagefright_foundation", // for Mutexed
+        "lib_imx_ts_manager",
+        "lib_imx_c2_videoenc_common",
+    ],
+
+    srcs: [
+        "VpuWrapperEnc.cpp",
+    ],
+}
+
+

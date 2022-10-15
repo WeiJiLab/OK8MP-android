@@ -1,0 +1,106 @@
+// Copyright 2019 NXP
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+evs_defaults {
+    name: "evs_default",
+    srcs: [
+        "service.cpp",
+        "EvsEnumerator.cpp",
+        "EvsCamera.cpp",
+        "EvsDisplay.cpp",
+        "V4l2Capture.cpp",
+        "ConfigManager.cpp",
+        "ConfigManagerUtil.cpp",
+        "FakeCapture.cpp",
+    ],
+    shared_libs: [
+        "android.hardware.automotive.evs@1.1",
+        "android.hardware.automotive.evs@1.0",
+        "nxp.hardware.display@1.0",
+        "libbase",
+        "libtinyxml2",
+        "libcamera_metadata",
+        "libpng",
+        "libui",
+        "libbinder",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libfsldisplay",
+        "libsync",
+    ],
+    vintf_fragments: [
+        "android.hardware.automotive.evs@1.1-EvsEnumeratorHw.xml",
+    ],
+    include_dirs: [
+        "frameworks/native/include",
+        "vendor/nxp-opensource/imx/display/display",
+    ],
+    vendor: true,
+    strip: {
+        keep_symbols: true,
+    },
+    cflags: ["-DLOG_TAG=\"EvsDriver\""] + [
+        "-DGL_GLEXT_PROTOTYPES",
+        "-DEGL_EGLEXT_PROTOTYPES",
+    ] + [
+        "-Wall",
+        "-Werror",
+        "-Wunused",
+        "-Wunreachable-code",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.automotive.evs@1.1-EvsEnumeratorHw",
+    overrides: ["android.automotive.evs.manager@1.0"],
+    defaults: ["evs_default"],
+    required: [
+        "imx_evs_configuration.xml",
+        "fake_evs_configuration.xml",
+    ],
+}
+
+bootstrap_go_package {
+    name: "soong-evs",
+    pkgPath: "android/soong/vendor/nxp-opensource/imx/evs",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "evs.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+prebuilt_etc {
+    name: "imx_evs_configuration.xml",
+    soc_specific: true,
+    src: "resources/imx_evs_configuration.xml",
+    sub_dir: "automotive/evs",
+}
+
+prebuilt_etc {
+    name: "fake_evs_configuration.xml",
+    soc_specific: true,
+    src: "resources/fake_evs_configuration.xml",
+    sub_dir: "automotive/evs",
+}

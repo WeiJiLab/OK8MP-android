@@ -1,0 +1,50 @@
+cc_library_shared {
+    name: "libhantro_h1",
+
+    srcs: [
+        "h1_encoder/software/linux_reference/ewl/ewl_linux_lock.c",
+        "h1_encoder/software/linux_reference/ewl/ewl_x280_common.c",
+        "h1_encoder/software/linux_reference/ewl/ewl_x280_irq.c",
+    ],
+
+    defaults: [
+        "IMX_VPU_ENC_DEFAULTS",
+        "IMX_VPU_G1_LDFLAGS",
+    ],
+
+    cflags: ["-DEWL_NO_HW_TIMEOUT"],
+
+    ldflags: [
+        "-shared",
+        "-nostartfiles",
+        "-Wl,-Bsymbolic",
+        "-Wl,-z",
+        "-Wl,muldefs",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    local_include_dirs: [
+        "h1_encoder/software/source/vp8",
+        "h1_encoder/software/source/h264",
+        "h1_encoder/software/linux_reference/ewl",
+    ],
+
+    whole_static_libs: [
+        "lib_imx_vsi_vp8_enc",
+        "lib_imx_vsi_h264_enc",
+    ],
+
+    // ifeq ($(ENABLE_HANTRO_DEBUG_LOG), true)
+    //shared_libs: [
+    //    "liblog",
+    //    "libcutils",
+    //],
+    // endif
+
+    vendor: true,
+}

@@ -1,0 +1,101 @@
+cc_library_static {
+    name: "lib_imx_vsi_h264_enc",
+
+    srcs: [
+        "h264/H264Cabac.c",
+        "h264/H264CodeFrame.c",
+        "h264/H264Denoise.c",
+        "h264/H264EncApi.c",
+        "h264/h264encapi_ext.c",
+        "h264/H264Init.c",
+        "h264/H264Mad.c",
+        "h264/H264NalUnit.c",
+        "h264/H264PictureBuffer.c",
+        "h264/H264PictureParameterSet.c",
+        "h264/H264PutBits.c",
+        "h264/H264RateControl.c",
+        "h264/H264Sei.c",
+        "h264/H264SequenceParameterSet.c",
+        "h264/H264Slice.c",
+        "h264/H264TestId.c",
+        "common/encasiccontroller.c",
+        "common/encasiccontroller_v2.c",
+        "common/encpreprocess.c",
+        "common/encInputLineBuffer.c",
+        "common/encswhwregisters.c",
+    ],
+
+    local_include_dirs: [
+        "h264",
+        "common",
+    ],
+
+    defaults: [
+        "IMX_VPU_ENC_DEFAULTS",
+        "IMX_VPU_G1_CFLAGS",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    vendor: true,
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_vp8_enc",
+
+    srcs: [
+        "vp8/vp8encapi.c",
+        "vp8/vp8codeframe.c",
+        "vp8/vp8entropy.c",
+        "vp8/vp8header.c",
+        "vp8/vp8init.c",
+        "vp8/vp8macroblocktools.c",
+        "vp8/vp8picparameterset.c",
+        "vp8/vp8picturebuffer.c",
+        "vp8/vp8putbits.c",
+        "vp8/vp8ratecontrol.c",
+        "vp8/vp8testid.c",
+        "common/encasiccontroller.c",
+        "common/encasiccontroller_v2.c",
+        "common/encpreprocess.c",
+        "common/encswhwregisters.c",
+    ],
+
+    local_include_dirs: [
+        "vp8",
+        "common",
+    ],
+
+    defaults: [
+        "IMX_VPU_ENC_DEFAULTS",
+        "IMX_VPU_G1_CFLAGS",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    vendor: true,
+
+}

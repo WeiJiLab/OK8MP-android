@@ -1,0 +1,344 @@
+cc_defaults {
+    name: "static_dec_lib_defaults",
+
+    local_include_dirs: [
+        "common",
+    ],
+
+    defaults: [
+        "IMX_VPU_DEC_DEFAULTS",
+        "IMX_VPU_G1_CFLAGS",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    vendor: true,
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_avs",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "avs/avs_headers.c",
+        "avs/avs_strm.c",
+        "avs/avs_utils.c",
+        "avs/avs_vlc.c",
+        "avs/avsdecapi.c",
+        "avs/avsdecapi_internal.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/tiledref.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_h264",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "h264high/h264_pp_pipeline.c",
+        "h264high/h264decapi.c",
+        "h264high/h264decapi_e.c",
+        "h264high/h264decmcapi.c",
+        "h264high/h264hwd_asic.c",
+        "h264high/h264hwd_cabac.c",
+        "h264high/h264hwd_cavlc.c",
+        "h264high/h264hwd_conceal.c",
+        "h264high/h264hwd_decoder.c",
+        "h264high/h264hwd_dpb.c",
+        "h264high/h264hwd_dpb_lock.c",
+        "h264high/h264hwd_inter_prediction.c",
+        "h264high/h264hwd_intra_prediction.c",
+        "h264high/h264hwd_macroblock_layer.c",
+        "h264high/h264hwd_slice_data.c",
+        "h264high/h264hwd_storage.c",
+        "h264high/legacy/h264hwd_byte_stream.c",
+        "h264high/legacy/h264hwd_nal_unit.c",
+        "h264high/legacy/h264hwd_neighbour.c",
+        "h264high/legacy/h264hwd_pic_order_cnt.c",
+        "h264high/legacy/h264hwd_pic_param_set.c",
+        "h264high/legacy/h264hwd_sei.c",
+        "h264high/legacy/h264hwd_seq_param_set.c",
+        "h264high/legacy/h264hwd_slice_group_map.c",
+        "h264high/legacy/h264hwd_slice_header.c",
+        "h264high/legacy/h264hwd_stream.c",
+        "h264high/legacy/h264hwd_util.c",
+        "h264high/legacy/h264hwd_vlc.c",
+        "h264high/legacy/h264hwd_vui.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/tiledref.c",
+        "common/workaround.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+        "common/stream_corrupt.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DSKIP_OPENB_FRAME",
+        "-DENABLE_DPB_RECOVER",
+        "-D_DISABLE_PIC_FREEZE",
+        "-DUSE_WORDACCESS",
+        "-DDEC_X170_USING_IRQ=1",
+        "-DFIFO_DATATYPE=void*",
+    ],
+
+    local_include_dirs: [
+        "h264high",
+        "h264high/legacy",
+    ],
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_mpeg2",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "mpeg2/mpeg2decapi.c",
+        "mpeg2/mpeg2decapi_internal.c",
+        "mpeg2/mpeg2hwd_strm.c",
+        "mpeg2/mpeg2hwd_headers.c",
+        "mpeg2/mpeg2hwd_utils.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/tiledref.c",
+        "common/workaround.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+        "common/stream_corrupt.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DENABLE_NON_STANDARD_FEATURES",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+    include_dirs: ["vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/mpeg2"],
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_mpeg4",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "mpeg4/mp4dechwd_error_conceal.c",
+        "mpeg4/mp4decapi.c",
+        "mpeg4/mp4decapi_internal.c",
+        "mpeg4/mp4dechwd_rvlc.c",
+        "mpeg4/mp4dechwd_strmdec.c",
+        "mpeg4/mp4dechwd_headers.c",
+        "mpeg4/mp4dechwd_motiontexture.c",
+        "mpeg4/mp4dechwd_shortvideo.c",
+        "mpeg4/mp4dechwd_utils.c",
+        "mpeg4/mp4dechwd_videopacket.c",
+        "mpeg4/mp4dechwd_vlc.c",
+        "mpeg4/mp4dechwd_vop.c",
+        "common/regdrv_g1.c",
+        "common/tiledref.c",
+        "common/refbuffer.c",
+        "common/workaround.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+        "mpeg4/mp4dechwd_custom.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-D_MP4_RLC_BUFFER_SIZE=384",
+        "-DFIFO_DATATYPE=addr_t",
+        ],
+
+    include_dirs: ["vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/mpeg4"],
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_vc1",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "vc1/vc1decapi.c",
+        "vc1/vc1hwd_asic.c",
+        "vc1/vc1hwd_bitplane.c",
+        "vc1/vc1hwd_decoder.c",
+        "vc1/vc1hwd_picture_layer.c",
+        "vc1/vc1hwd_stream.c",
+        "vc1/vc1hwd_vlc.c",
+        "vc1/vc1hwd_headers.c",
+        "common/tiledref.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-UCLEAR_HDRINFO_IN_SEEK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_vp8",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "vp8/vp8decapi.c",
+        "vp8/vp8decmcapi.c",
+        "vp8/vp8hwd_bool.c",
+        "vp8/vp8hwd_buffer_queue.c",
+        "vp8/vp8hwd_probs.c",
+        "vp8/vp8hwd_headers.c",
+        "vp8/vp8hwd_decoder.c",
+        "vp8/vp8hwd_pp_pipeline.c",
+        "vp8/vp8hwd_asic.c",
+        "vp8/vp8hwd_error.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/tiledref.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/fifo.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_vp6",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "vp6/vp6booldec.c",
+        "vp6/vp6dec.c",
+        "vp6/vp6huffdec.c",
+        "vp6/vp6hwd_api.c",
+        "vp6/vp6hwd_asic.c",
+        "vp6/vp6strmbuffer.c",
+        "vp6/vp6decodemode.c",
+        "vp6/vp6decodemv.c",
+        "vp6/vp6scanorder.c",
+        "vp6/vp6gconst.c",
+        "vp6/vp6_pp_pipeline.c",
+        "common/tiledref.c",
+        "common/regdrv_g1.c",
+        "common/refbuffer.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/fifo.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-UCLEAR_HDRINFO_IN_SEEK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_rv",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "rv/rvdecapi.c",
+        "rv/rvdecapi_internal.c",
+        "rv/rv_strm.c",
+        "rv/rv_headers.c",
+        "rv/rv_utils.c",
+        "rv/rv_rpr.c",
+        "common/regdrv_g1.c",
+        "common/tiledref.c",
+        "common/refbuffer.c",
+        "rv/on2rvdecapi.c",
+        "common/workaround.c",
+        "common/bqueue.c",
+        "common/errorhandling.c",
+        "common/commonconfig_g1.c",
+        "common/input_queue.c",
+        "common/fifo.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-UCLEAR_HDRINFO_IN_SEEK",
+        "-DFIFO_DATATYPE=addr_t",
+    ],
+
+    include_dirs: ["vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/rv"],
+
+}
+
+cc_library_static {
+    name: "lib_imx_vsi_jpeg",
+    defaults: ["static_dec_lib_defaults"],
+
+    srcs: [
+        "jpeg/jpegdecapi.c",
+        "jpeg/jpegdechdrs.c",
+        "jpeg/jpegdecinternal.c",
+        "jpeg/jpegdecscan.c",
+        "jpeg/jpegdecutils.c",
+        "common/regdrv_g1.c",
+        "common/commonconfig_g1.c",
+    ],
+
+    cflags: [
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+    ],
+
+}

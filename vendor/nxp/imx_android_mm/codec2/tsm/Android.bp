@@ -1,0 +1,20 @@
+cc_library_shared {
+    name: "lib_imx_ts_manager",
+
+    shared_libs: [
+        "liblog",
+        "libutils",
+    ],
+
+    srcs: [
+        "Tsm_wrapper.c",
+        "mfw_gst_ts.c",
+    ],
+
+    include_dirs: ["."],
+
+    defaults: [
+        "imx_defaults",
+    ],
+
+}

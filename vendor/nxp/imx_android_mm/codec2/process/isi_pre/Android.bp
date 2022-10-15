@@ -1,0 +1,81 @@
+imx_c2_process_isi_pre_defaults {
+    name: "imx_c2_process_isi_pre_default",
+}
+
+bootstrap_go_package {
+    name: "soong-imx_process_isi_pre",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/process/isi_pre",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "imx_process_isi_pre.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_library_shared {
+    name: "lib_imx_c2_process_isi_pre",
+
+    defaults: ["imx_c2_process_isi_pre_default"],
+
+    soc_specific: true,
+    srcs: [
+        "IsiPreProcess.cpp",
+    ],
+
+    header_libs: [
+        "libcodec2_headers",
+        "media_plugin_headers",
+    ],
+
+    include_dirs: [
+        "hardware/libhardware/include",
+        "frameworks/av",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp/imx_android_mm/codec2/tsm",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp-opensource/imx/display/display",
+        "vendor/nxp/fsl-proprietary/include",
+        "vendor/nxp/imx_android_mm/codec2/v4l2_dev",
+        "vendor/nxp/imx_android_mm/codec2/include",
+		"vendor/nxp/imx_android_mm/codec2/process/common",
+	],
+    shared_libs: [
+        "libcutils", // for properties
+        "liblog",    // for ALOG
+        "libstagefright_foundation", // for Mutexed
+        "libbase", // for C2_LOG
+        "libutils",
+        "libion",
+        "lib_imx_c2_componentbase",
+        "libcodec2_vndk",
+        "lib_c2_imx_store",
+        "lib_imx_c2_v4l2_dev",
+		"lib_imx_c2_process",
+    ],
+
+    whole_static_libs: ["libionallocator"],
+
+    sanitize: {
+        cfi: true,
+        misc_undefined: [
+            "unsigned-integer-overflow",
+            "signed-integer-overflow",
+        ],
+        diag: {
+            cfi: true,
+        },
+    },
+
+//    compile_multilib: "32",
+}
+

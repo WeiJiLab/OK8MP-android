@@ -1,0 +1,61 @@
+cc_library_shared {
+    name: "libg1",
+
+    defaults: [
+        "IMX_VPU_DEC_DEFAULTS",
+        "IMX_VPU_G1_CFLAGS",
+    ],
+
+    srcs: [
+        "decoder_sw/software/linux/dwl/dwl_linux.c",
+        "decoder_sw/software/linux/dwl/dwl_linux_sc.c",
+        "decoder_sw/software/linux/dwl/dwl_activity_trace.c",
+    ],
+
+
+    ldflags: [
+        "-shared",
+        "-nostartfiles",
+        "-Wl,-Bsymbolic",
+        "-Wl,-z",
+        "-Wl,muldefs",
+    ],
+
+    arch: {
+        arm64: {
+            cflags: ["-DUSE_64BIT_ENV"],
+        },
+    },
+
+    local_include_dirs: [
+        "decoder_sw/software/source/avs",
+        "decoder_sw/software/source/h264high",
+        "decoder_sw/software/source/h264high/legacy",
+        "decoder_sw/software/source/jpeg",
+        "decoder_sw/software/source/mpeg2",
+        "decoder_sw/software/linux/mpeg2",
+        "decoder_sw/software/linux/mpeg4",
+        "decoder_sw/software/linux/rv",
+    ],
+
+    whole_static_libs: [
+        "lib_imx_vsi_avs",
+        "lib_imx_vsi_h264",
+        "lib_imx_vsi_jpeg",
+        "lib_imx_vsi_mpeg2",
+        "lib_imx_vsi_mpeg4",
+        "lib_imx_vsi_rv",
+        "lib_imx_vsi_vp6",
+        "lib_imx_vsi_vp8",
+        "lib_imx_vsi_vc1",
+    ],
+
+    // ifeq ($(ENABLE_HANTRO_DEBUG_LOG), true)
+    //shared_libs: [
+    //    "liblog",
+    //    "libcutils",
+    //],
+    // endif
+
+    vendor: true,
+}

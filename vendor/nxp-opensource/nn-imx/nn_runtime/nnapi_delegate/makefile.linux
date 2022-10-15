@@ -1,0 +1,68 @@
+#include $(AQROOT)/makefile.linux.def
+
+OVXLIB_DIR = $(AQROOT)/ovxlib
+ifeq ($(OVXLIB_DIR),)
+$(error Please set OVXLIB_DIR env first)
+endif
+
+NNRT_ROOT = $(AQROOT)/nn_runtime
+ifeq ($(NNRT_ROOT),)
+$(error Please set NNRT_ROOT env first)
+endif
+
+OVX_INC ?= $(SDKTARGETSYSROOT)/usr/include
+INCLUDE += -I$(OVX_INC)
+INCLUDE += -I$(OVXLIB_DIR)/include/ops -I$(OVXLIB_DIR)/include/utils -I$(OVXLIB_DIR)/include/inference
+INCLUDE += -I$(OVXLIB_DIR)/include/client -I$(OVXLIB_DIR)/include -I$(OVXLIB_DIR)/include/libnnext
+INCLUDE += -I$(OVXLIB_DIR)/include/platform
+INCLUDE += -I$(NNRT_ROOT)/nnrt
+INCLUDE += -I./ -I$(NNRT_ROOT)
+
+CFLAGS += $(INCLUDE)  -std=c++11
+CFLAGS += -fvisibility=hidden -D'OVXLIB_API=__attribute__((visibility("default")))'
+CC      = $(CXX) -pthread
+################################################################################
+# Supply necessary libraries.
+
+LIBS += -L$(AQROOT) -l ovxlib -lnnrt
+#LIBS += -lm
+
+#############################################################################
+# Macros.
+ifeq ($(gcdSTATIC_LINK), 1)
+STATIC=1
+TARGET_NAME  = libneuralnetworks.a
+else
+CFLAGS += -fPIC
+DYNAMIC      := 1
+TARGET_NAME  = libneuralnetworks.so.1.1.9
+TARGET_LINKS  := libneuralnetworks.so.1 libneuralnetworks.so.1.1 libneuralnetworks.so
+endif
+
+#############################################################################
+# Objects.
+vpath %.cpp ./
+OBJECTS = $(OBJ_DIR)/NeuralNetworks.o \
+
+# installation directory
+# INSTALL_DIR := $(VIVANTE_SDK_LIB)
+
+################################################################################
+# Include the common makefile.
+
+include $(AQROOT)/common.target
+
+################################################################################
+# Extra installation.
+
+install: extra_install build_link
+
+.PHONY: extra_install build_link
+extra_install:
+	@-cp -rf $(AQROOT)/nn_runtime/nnapi_delegate/bin_r/libneuralnetworks.so* $(AQROOT)
+build_link:
+ifneq ($(gcdSTATIC_LINK), 1)
+	@for lib in $(TARGET_LINKS); do \
+		ln -sf $(notdir $(TARGET_NAME)) $(AQROOT)/$$lib; \
+	done
+endif

@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Copyright (C) 2020 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Exterior View System Example Configuration
+
+     Android Automotive axes are used to define coordinates.
+     See https://source.android.com/devices/sensors/sensor-types#auto_axes
+
+     Use evs_configuration.dtd with xmllint tool, to validate XML configuration file
+-->
+
+<configuration>
+    <!-- system configuration -->
+    <system>
+        <!-- number of cameras available to EVS -->
+        <num_cameras value='4'/>
+    </system>
+
+    <!-- camera device information -->
+    <camera>
+        <!-- camera group 0 -->
+        <group id='group0' synchronized='CALIBRATED'>
+            <caps>
+                <!-- list of stream configuration supported by all physical devices -->
+                <!-- nxp have camera ov10635 which support 720p for all evs cameras -->
+                <stream id='0' width='1280' height='720' format='RGB_888' framerate='30'/>
+            </caps>
+
+            <!-- list of parameters -->
+            <!-- LOGICAL_MULTI_CAMERA_PHYSICAL_IDS list all camera in this group -->
+            <!-- the evs camera video item is not fix. just list two camera here -->
+            <!-- TODO: will change /dev/video3,/dev/video4 to mxc_isi.x.capture -->
+            <characteristics>
+                <parameter
+                    name='REQUEST_AVAILABLE_CAPABILITIES'
+                    type='enum'
+                    size='1'
+                    value='LOGICAL_MULTI_CAMERA'
+                />
+                <parameter
+                    name='LOGICAL_MULTI_CAMERA_PHYSICAL_IDS'
+                    type='byte[]'
+                    size='2'
+                    value='mxc_isi.0.capture,mxc_isi.1.capture,mxc_isi.2.capture,mxc_isi.3.capture'
+                />
+                <parameter
+                    name='LENS_DISTORTION'
+                    type='float'
+                    size='5'
+                    value='-0.03711481733589263,-0.0014805627895442888,-0.00030212056866592464,-0.00020149538570397933,0.0'
+               />
+               <parameter
+                    name='LENS_INTRINSIC_CALIBRATION'
+                    type='float'
+                    size='5'
+                    value='608.0026093794693,608.205469489769,968.699544102168,476.38843298898996,0.0'
+               />
+               <parameter
+                   name='LENS_POSE_TRANSLATION'
+                   type='float'
+                   size='3'
+                   value='-7.8028875403817685e-02,1.4537396465103221e+00,-8.4197165554645001e-02'
+               />
+               <parameter
+                   name='LENS_POSE_ROTATION'
+                   type='float'
+                   size='3'
+                   value='2.26308,0.0382788,-0.0220549'
+               />
+            </characteristics>
+        </group>
+
+        <!-- camera device starts -->
+        <device id='mxc_isi.0.capture' position='rear'>
+            <caps>
+
+                <!-- list of supported stream configurations -->
+                <!-- below configurations were taken from v4l2-ctrl query on Logitech Webcam C930e device -->
+                <stream id='0' width='1280' height='720'  format='RGB_888' framerate='30'/>
+                <stream id='1' width='960'  height='540'  format='RGB_888' framerate='30'/>
+                <stream id='2' width='848'  height='480'  format='RGB_888' framerate='30'/>
+                <stream id='3' width='640'  height='360'  format='RGB_888' framerate='30'/>
+                <stream id='4' width='480'  height='270'  format='RGB_888' framerate='30'/>
+                <stream id='5' width='160'  height='120'  format='RGB_888' framerate='30'/>
+            </caps>
+            <characteristics>
+                 <parameter
+                     name='LENS_DISTORTION'
+                     type='float'
+                     size='5'
+                     value='-0.02144954053245143,-0.0230920815638704,0.08443974617312376,-0.08035150082413312,0.0'
+                />
+                <parameter
+                     name='LENS_INTRINSIC_CALIBRATION'
+                     type='float'
+                     size='5'
+                     value='436.82890535,436.84264257,640.00630599,405.1690379,0.0'
+                />
+                <parameter
+                    name='LENS_POSE_TRANSLATION'
+                    type='float'
+                    size='3'
+                    value='-7.8028875403817685e-02,1.4537396465103221e+00,-8.4197165554645001e-02'
+                />
+                <parameter
+                    name='LENS_POSE_ROTATION'
+                    type='float'
+                    size='3'
+                    value='2.26308,0.0382788,-0.0220549'
+                />
+            </characteristics>
+        </device>
+        <!-- camera device starts -->
+        <device id='mxc_isi.1.capture' position='front'>
+            <caps>
+
+                <!-- list of supported stream configurations -->
+                <!-- below configurations were taken from v4l2-ctrl query on Logitech Webcam C930e device -->
+                <stream id='0' width='1280' height='720'  format='RGB_888' framerate='30'/>
+                <stream id='1' width='960'  height='540'  format='RGB_888' framerate='30'/>
+                <stream id='2' width='848'  height='480'  format='RGB_888' framerate='30'/>
+                <stream id='3' width='640'  height='360'  format='RGB_888' framerate='30'/>
+                <stream id='4' width='480'  height='270'  format='RGB_888' framerate='30'/>
+                <stream id='5' width='160'  height='120'  format='RGB_888' framerate='30'/>
+            </caps>
+            <characteristics>
+                 <parameter
+                     name='LENS_DISTORTION'
+                     type='float'
+                     size='5'
+                     value='-0.02144954053245143,-0.0230920815638704,0.08443974617312376,-0.08035150082413312,0.0'
+                />
+                <parameter
+                     name='LENS_INTRINSIC_CALIBRATION'
+                     type='float'
+                     size='5'
+                     value='436.82890535,436.84264257,640.00630599,405.1690379,0.0'
+                />
+                <parameter
+                    name='LENS_POSE_TRANSLATION'
+                    type='float'
+                    size='3'
+                    value='2.9715052384687407e-01,1.1407102692699396e+00,3.0074545273489206e-01'
+                />
+                <parameter
+                    name='LENS_POSE_ROTATION'
+                    type='float'
+                    size='3'
+                    value='1.67415,-1.74075,0.789399'
+                />
+            </characteristics>
+        </device>
+        <!-- camera device starts -->
+        <device id='mxc_isi.2.capture' position='right'>
+            <caps>
+
+                <!-- list of supported stream configurations -->
+                <!-- below configurations were taken from v4l2-ctrl query on Logitech Webcam C930e device -->
+                <stream id='0' width='1280' height='720'  format='RGB_888' framerate='30'/>
+                <stream id='1' width='960'  height='540'  format='RGB_888' framerate='30'/>
+                <stream id='2' width='848'  height='480'  format='RGB_888' framerate='30'/>
+                <stream id='3' width='640'  height='360'  format='RGB_888' framerate='30'/>
+                <stream id='4' width='480'  height='270'  format='RGB_888' framerate='30'/>
+                <stream id='5' width='160'  height='120'  format='RGB_888' framerate='30'/>
+            </caps>
+            <characteristics>
+                 <parameter
+                     name='LENS_DISTORTION'
+                     type='float'
+                     size='5'
+                     value='-0.02144954053245143,-0.0230920815638704,0.08443974617312376,-0.08035150082413312,0.0'
+                />
+                <parameter
+                     name='LENS_INTRINSIC_CALIBRATION'
+                     type='float'
+                     size='5'
+                     value='436.82890535,436.84264257,640.00630599,405.1690379,0.0'
+                />
+                <parameter
+                    name='LENS_POSE_TRANSLATION'
+                    type='float'
+                    size='3'
+                    value='1.7115269161259747e-01,1.4376160762596599e+00,-1.9028844233159006e-02'
+                />
+                <parameter
+                    name='LENS_POSE_ROTATION'
+                    type='float'
+                    size='3'
+                    value='-0.106409,-2.83697,1.28629'
+                />
+            </characteristics>
+        </device>
+        <!-- camera device starts -->
+        <device id='mxc_isi.3.capture' position='left'>
+            <caps>
+
+                <!-- list of supported stream configurations -->
+                <!-- below configurations were taken from v4l2-ctrl query on Logitech Webcam C930e device -->
+                <stream id='0' width='1280' height='720'  format='RGB_888' framerate='30'/>
+                <stream id='1' width='960'  height='540'  format='RGB_888' framerate='30'/>
+                <stream id='2' width='848'  height='480'  format='RGB_888' framerate='30'/>
+                <stream id='3' width='640'  height='360'  format='RGB_888' framerate='30'/>
+                <stream id='4' width='480'  height='270'  format='RGB_888' framerate='30'/>
+                <stream id='5' width='160'  height='120'  format='RGB_888' framerate='30'/>
+            </caps>
+            <characteristics>
+                 <parameter
+                     name='LENS_DISTORTION'
+                     type='float'
+                     size='5'
+                     value='-0.02144954053245143,-0.0230920815638704,0.08443974617312376,-0.08035150082413312,0.0'
+                />
+                <parameter
+                     name='LENS_INTRINSIC_CALIBRATION'
+                     type='float'
+                     size='5'
+                     value='436.82890535,436.84264257,640.00630599,405.1690379,0.0'
+                />
+                <parameter
+                    name='LENS_POSE_TRANSLATION'
+                    type='float'
+                    size='3'
+                    value='-3.0842691427126512e-01,1.0884122033556984e+00,3.4419058255954926e-01'
+                />
+                <parameter
+                    name='LENS_POSE_ROTATION'
+                    type='float'
+                    size='3'
+                    value='1.63019,1.76475,-0.827941'
+                />
+            </characteristics>
+        </device>
+    </camera>
+
+</configuration>
+

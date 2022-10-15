@@ -1,0 +1,63 @@
+
+cc_defaults {
+    name: "imx_defaults",
+
+    cflags: [
+        "-Wl,-Bsymbolic",
+        "-Wno-unused-parameter",
+        "-Wno-implicit-fallthrough",
+        "-Werror",
+    ],
+
+    sanitize: {
+          misc_undefined: [
+            "signed-integer-overflow",
+            "unsigned-integer-overflow",
+            "bounds",],
+          diag: {
+              misc_undefined: [
+                "signed-integer-overflow",
+                "unsigned-integer-overflow",
+                "bounds",],
+          },
+          cfi: true,
+    },
+
+    soc_specific: true,
+    vendor: true
+}
+
+imx_codec2_defaults {
+    name: "imx_codec2_default",
+}
+
+imx_mm_common_defaults {
+    name: "imx_mm_common_default",
+}
+
+bootstrap_go_package {
+    name: "soong-codec2",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "imx_codec2.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+subdirs = [
+    "base",
+    "tsm",
+    "v4l2_dev",
+    "video_dec",
+    "audio_dec",
+    "store",
+    "process",
+]

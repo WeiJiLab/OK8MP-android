@@ -1,0 +1,11 @@
+__crc_viv_dequeue_buffer = 0x988fcb82;
+__crc_viv_init_bufq = 0xa996fdef;
+__crc_viv_deinit_bufq = 0x2b518ad1;
+__crc_viv_dequeue_sg_buffer = 0x306d2ee7;
+__crc_viv_queue_buffer = 0x680661c5;
+__crc_viv_buffer_ready = 0xe882a9e5;
+__crc_viv_get_source = 0x6a833592;
+__crc_viv_loop_source = 0x09165f8b;
+__crc_viv_register_src_notifier = 0x786f4619;
+__crc_viv_register_dst_notifier = 0x6be34a93;
+__crc_viv_post_irq_event = 0xa387a505;

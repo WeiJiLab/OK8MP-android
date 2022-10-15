@@ -1,0 +1,19 @@
+cc_library_static {
+    name: "lib_imx_vsi_dwl",
+
+    defaults: [
+        "IMX_VPU_DEC_DEFAULTS",
+    ],
+    srcs: [
+        "dwl_linux.c",
+        "dwl_linux_hw.c",
+        "dwl_activity_trace.c",
+        "dwl_buf_protect.c",
+        "dwl_linux_sc.c"
+    ],
+
+    //shared_libs: ["pthread"],
+
+    vendor: true
+
+}

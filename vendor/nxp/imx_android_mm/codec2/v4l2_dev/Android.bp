@@ -1,0 +1,68 @@
+imx_c2_v4l2_dev_defaults {
+    name: "imx_c2_v4l2_dev_default",
+}
+
+bootstrap_go_package {
+    name: "soong-v4l2_dev",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/v4l2_dev",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "v4l2_dev.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+
+cc_library_shared {
+    name: "lib_imx_c2_v4l2_dev",
+    defaults: ["imx_c2_v4l2_dev_default"],
+    soc_specific: true,
+    srcs: [
+        "V4l2Dev.cpp",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+        "libcodec2_headers",
+    ],
+
+    include_dirs: [
+        "hardware/libhardware/include",
+        "frameworks/av/media/libstagefright/include",
+        "frameworks/av/media/codec2/core/include",
+        "frameworks/av/media/codec2/vndk/include",
+        "frameworks/av/media/codec2/components/base/include",    
+        "vendor/nxp/imx_android_mm/codec2/video_dec/common",
+        "vendor/nxp-opensource/imx/include",
+        "vendor/nxp/imx_android_mm/extractor",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libstagefright_bufferqueue_helper",
+        "libstagefright_foundation",
+        "libcodec2_vndk",
+	    "libutils",
+        "libcutils",
+    ],
+
+    sanitize: {
+        cfi: true,
+        misc_undefined: [
+            "unsigned-integer-overflow",
+            "signed-integer-overflow",
+        ],
+        diag: {
+            cfi: true,
+        },
+    },
+
+ //  compile_multilib: "32",
+}

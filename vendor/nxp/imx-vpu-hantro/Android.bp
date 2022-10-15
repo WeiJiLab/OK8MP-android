@@ -1,0 +1,164 @@
+cc_defaults {
+    name: "IMX_VPU_FLAGS_DEFAULTS",
+    // IMX_VPU_CFLAGS
+    cflags: [
+        "-DANDROID_BUILD",
+        "-D_POSIX_SOURCE",
+        "-UDOMX_MEM_CHECK",
+        "-Wno-unused-parameter",
+        "-Wno-missing-field-initializers",
+        "-DDEC_MODULE_PATH=\"/dev/mxc_hantro\"",
+        "-DUSE_FAKE_RFC_TABLE",
+        "-DFIFO_DATATYPE=void*",
+        "-DNDEBUG",
+        "-DDOWN_SCALER",
+        "-DUSE_EXTERNAL_BUFFER",
+        "-DUSE_FAST_EC",
+        "-DUSE_VP9_EC",
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DDEC_X170_OUTPUT_FORMAT=0",
+        "-DDEC_X170_TIMEOUT_LENGTH=-1",
+        "-DENABLE_HEVC_SUPPORT",
+        "-DENABLE_VP9_SUPPORT",
+        "-DUSE_ION",
+        "-DDWL_DISABLE_REG_PRINTS",
+        "-DDWL_USE_DEC_IRQ",
+        "-DGET_OUTPUT_BUFFER_NON_BLOCK",
+        "-DHANTRODEC_STREAM_SWAP=15",
+        "-DUSE_OUTPUT_RELEASE",
+        "-DUSE_PICTURE_DISCARD",
+        "-O3",
+        "-DHAVE_ARCH_STRUCT_FLOCK64",
+    ],
+    // IMX_VPU_LDFLAGS
+    ldflags: [
+        "-shared",
+        "-nostartfiles",
+        "-Wl",
+        "-Bsymbolic",
+        "-Wl,--fatal-warnings",
+    ],
+}
+
+
+
+cc_defaults {
+    name: "IMX_VPU_G1_CFLAGS",
+    cflags: [
+        "-DSET_OUTPUT_CROP_RECT",
+        "-DUSE_EXTERNAL_BUFFER",
+        "-DUSE_OUTPUT_RELEASE",
+        "-DVSI_API",
+        "-DIS_G1_DECODER",
+        "-DENABLE_CODEC_VP8",
+        "-DVP8_HWTIMEOUT_WORKAROUND",
+        "-DENABLE_CODEC_MJPEG",
+        "-DGET_FREE_BUFFER_NON_BLOCK",
+        "-DDOWN_SCALER",
+        "-UCLEAR_HDRINFO_IN_SEEK",
+        "-UFIFO_DATATYPE",
+    ],
+}
+
+cc_defaults {
+    name: "IMX_VPU_G1_LDFLAGS",
+    ldflags: [
+        "-shared",
+        "-nostartfiles",
+        "-Wl,-Bsymbolic",
+        "-Wl,-z",
+        "-Wl,muldefs",
+        "-Wl",
+    ],
+}
+
+
+// add this defaults to enable debug
+cc_defaults {
+    name: "IMX_VPU_ENABLE_DEBUG_DEFAULTS",
+    cflags: [
+        "-D_DWL_DEBUG",
+        "-DENABLE_DBGT_TRACE",
+        "-DDBGT_CONFIG_AUTOVAR",
+        "-DDBGT_VAR=0xFFF",
+        "-DDBGT_TAG=dwl",
+        "-DDEBUG",
+        "-g",
+    ],
+
+    include_dirs: ["system/core/include"],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+    ],
+}
+
+IMX_VPU_DEC_DEFAULTS {
+    name: "IMX_VPU_DEC_DEFAULTS",
+    defaults: [
+        "IMX_VPU_FLAGS_DEFAULTS",
+        //"IMX_VPU_ENABLE_DEBUG_DEFAULTS",
+    ],
+
+    include_dirs: [
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/memalloc",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/pcidriver",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/pp",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/source/inc",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/source/common",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/source/hevc",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/source/config",
+        "vendor/nxp/imx-vpu-hantro/openmax_il/headers",
+        "vendor/nxp/imx-vpu-hantro/openmax_il/source",
+        "vendor/nxp/imx-vpu-hantro/decoder_sw/software/linux/h264high",
+    ],
+}
+
+IMX_VPU_ENC_DEFAULTS {
+    name: "IMX_VPU_ENC_DEFAULTS",
+    defaults: [
+        "IMX_VPU_FLAGS_DEFAULTS",
+        //"IMX_VPU_ENABLE_DEBUG_DEFAULTS",
+    ],
+
+    include_dirs: [
+        "vendor/nxp/imx-vpu-hantro/openmax_il/headers",
+        "vendor/nxp/imx-vpu-hantro/openmax_il/source",
+        "vendor/nxp/imx-vpu-hantro/openmax_il/source/encoder",
+        "vendor/nxp/imx-vpu-hantro/h1_encoder/software/inc",
+        "vendor/nxp/imx-vpu-hantro/h1_encoder/software/source/common",
+    ],
+}
+
+
+bootstrap_go_package {
+    name: "soong-imx-vpu-hantro",
+    pkgPath: "android/soong/vendor/nxp/imx-vpu-hantro",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "imx_vpu_hantro.go",
+    ],
+    pluginFor: ["soong_build"],
+} 
+
+subdirs = [
+    "decoder_sw/software/linux/dwl",
+    "decoder_sw/software/*",
+    "h1_encoder/software/source",
+    "openmax_il/source/decoder",
+    "openmax_il/source/encoder",
+]
+
+build = [
+    "Android_hantro.bp",
+    "Android_g1.bp",
+    "Android_hantro_h1.bp",
+]

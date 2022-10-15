@@ -1,0 +1,25 @@
+imx_c2_process_defaults {
+    name: "imx_c2_process_default",
+}
+
+
+bootstrap_go_package {
+    name: "soong-imx_process",
+    pkgPath: "android/soong/vendor/nxp/imx_android_mm/codec2/process",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "imx_process.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+subdirs = [
+    "*",
+]
