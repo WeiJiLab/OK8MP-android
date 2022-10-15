@@ -1,0 +1,81 @@
+{
+  "settings": {
+    "ab_suffixes": ["_a", "_b"],
+    "partitions_offset_begin": 0,
+    "disk_size": 10737418240,
+    "disk_alignment": 4096,
+    "disk_guid": "01234567-89ab-cdef-0123-000000000000"
+  },
+  "partitions": [
+    {
+      "label": "no_persist",
+      "offset": 20480,
+      "size": 134217728,
+      "grow": false,
+      "guid": "01234567-89ab-cdef-0123-000000000001",
+      "type_guid": "bb499290-b57e-49f6-bf41-190386693794",
+      "flags": "0x0000000000000000",
+      "persist": false,
+      "ignore": false,
+      "ab": false,
+      "ab_expanded": false,
+      "position": 1
+    },
+    {
+      "label": "false_persist",
+      "offset": 134238208,
+      "size": 134217728,
+      "grow": false,
+      "guid": "01234567-89ab-cdef-0123-000000000002",
+      "type_guid": "bb499290-b57e-49f6-bf41-190386693794",
+      "flags": "0x0000000000000000",
+      "persist": false,
+      "ignore": false,
+      "ab": false,
+      "ab_expanded": false,
+      "position": 2
+    },
+    {
+      "label": "true_persist",
+      "offset": 268455936,
+      "size": 134217728,
+      "grow": false,
+      "guid": "01234567-89ab-cdef-0123-000000000003",
+      "type_guid": "bb499290-b57e-49f6-bf41-190386693794",
+      "flags": "0x0000000000000001",
+      "persist": true,
+      "ignore": false,
+      "ab": false,
+      "ab_expanded": false,
+      "position": 3
+    },
+    {
+      "label": "false_persist_with_flags",
+      "offset": 402673664,
+      "size": 134217728,
+      "grow": false,
+      "guid": "01234567-89ab-cdef-0123-000000000004",
+      "type_guid": "bb499290-b57e-49f6-bf41-190386693794",
+      "flags": "0x0000000000000010",
+      "persist": false,
+      "ignore": false,
+      "ab": false,
+      "ab_expanded": false,
+      "position": 4
+    },
+    {
+      "label": "true_persist_with_flags",
+      "offset": 536891392,
+      "size": 134217728,
+      "grow": false,
+      "guid": "01234567-89ab-cdef-0123-000000000005",
+      "type_guid": "bb499290-b57e-49f6-bf41-190386693794",
+      "flags": "0x0000000000000011",
+      "persist": true,
+      "ignore": false,
+      "ab": false,
+      "ab_expanded": false,
+      "position": 5
+    }
+  ]
+}

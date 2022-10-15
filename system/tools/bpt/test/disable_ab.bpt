@@ -1,0 +1,16 @@
+{
+    "partitions": [
+        {
+            "ab": false,
+            "label": "boot"
+        },
+        {
+            "ab": false,
+            "label": "system"
+        },
+        {
+            "ab": false,
+            "label": "odm"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "partitions": [
+        {
+            "label": "no_persist",
+            "size": "128 MiB",
+            "position": 1,
+            "type_guid": "brillo_boot"
+        },
+        {
+            "label": "false_persist",
+            "size": "128 MiB",
+            "position": 2,
+            "persist": false,
+            "type_guid": "brillo_boot"
+        },
+        {
+            "label": "true_persist",
+            "size": "128 MiB",
+            "position": 3,
+            "persist": true,
+            "type_guid": "brillo_boot"
+        },
+        {
+            "label": "false_persist_with_flags",
+            "size": "128 MiB",
+            "flags": "0x10",
+            "persist": false,
+            "position": 4,
+            "type_guid": "brillo_boot"
+        },
+        {
+            "label": "true_persist_with_flags",
+            "size": "128 MiB",
+            "flags": "0x10",
+            "persist": true,
+            "position": 5,
+            "type_guid": "brillo_boot"
+        }
+    ]
+}

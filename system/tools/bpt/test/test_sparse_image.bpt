@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "disk_size": "128 KiB"
+  },
+  "partitions": [
+    {
+      "label": "sparse_data",
+      "grow": true
+    }
+  ]
+}
