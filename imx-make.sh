@@ -1,0 +1,1 @@
+device/nxp/common/tools/imx-make.sh
