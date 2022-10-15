@@ -1,0 +1,3 @@
+service vendor.gatekeeper-1-0-software /vendor/bin/hw/android.hardware.gatekeeper@1.0-service.software-imx
+    user system
+    group system
