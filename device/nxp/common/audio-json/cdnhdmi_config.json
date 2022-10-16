@@ -1,0 +1,6 @@
+{
+  "driver_name": "imx-audio-hdmi",
+  "bus_name": "bus100_audio_zone_1",
+  "supported_out_devices": ["hdmi", "bus"],
+  "is_hdmi_card": 1
+}

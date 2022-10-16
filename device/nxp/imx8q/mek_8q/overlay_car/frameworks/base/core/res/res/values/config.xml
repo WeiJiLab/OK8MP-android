@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+** Copyright 2011, The Android Open Source Project
+** Copyright 2018 NXP
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<!-- These resources are around just to allow their values to be customized
+     for different hardware and product builds. -->
+<resources>
+
+    <!-- This device built for android auto is "voice capable".. -->
+    <bool name="config_voice_capable">true</bool>
+
+    <!-- Declare cluster as private display while all others remain public -->
+    <integer-array translatable="false"
+        name="config_localPrivateDisplayPorts">1</integer-array>
+    <!-- Lock secondary launcher and do not allow user change -->
+    <bool name="config_useSystemProvidedLauncherForSecondary">true</bool>
+    <string name="config_secondaryHomeComponent" translatable="false">
+        com.android.example/com.android.example.SecondaryDisplayFixedLauncher</string>
+    <!-- Handle volume keys directly in Window Manager without passing them to the foreground app -->
+    <bool name="config_handleVolumeKeysInWindowManager">true</bool>
+    <!-- If this is true, notification effects will be played by the notification server.
+         When false, car notification effects will be handled elsewhere. -->
+    <bool name="config_enableServerNotificationEffectsForAutomotive">true</bool>
+
+    <!-- Whether the device supports quick settings and its associated APIs -->
+    <bool name="config_quickSettingsSupported">false</bool>
+
+    <!-- Car uses hardware amplifier for volume. -->
+    <bool name="config_useFixedVolume">true</bool>
+</resources>
