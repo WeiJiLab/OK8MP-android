@@ -1,0 +1,11 @@
+drops {
+  android_build_drop {
+    build_id: "6905347"
+    target: "kernel_sunfish_kasan"
+    source_file: "hdmi_dlkm.ko"
+  }
+  dest_file: "kasan/hdmi_dlkm.ko"
+  version: "Linux version 4.14.191-g1960f4e93c00-ab6905347 (android-build@abfarm-01182) (Android (6443078 based on r383902) clang version 11.0.1 (https://android.googlesource.com/toolchain/llvm-project b397f81060ce6d701042b782172ed13bee898b79)) #1 SMP PREEMPT Wed Oct 14 16:22:51 UTC 2020"
+  version_group: "kernel-and-modules"
+  git_project: "device/google/sunfish-kernel"
+}

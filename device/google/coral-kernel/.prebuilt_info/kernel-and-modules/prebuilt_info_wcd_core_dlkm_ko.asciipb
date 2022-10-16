@@ -1,0 +1,11 @@
+drops {
+  android_build_drop {
+    build_id: "6891317"
+    target: "kernel"
+    source_file: "wcd_core_dlkm.ko"
+  }
+  dest_file: "wcd_core_dlkm.ko"
+  version: "Linux version 4.14.191-gf6c9439f069c-ab6891317 (android-build@abfarm-us-west1-c-0097) (Android (6443078 based on r383902) clang version 11.0.1 (https://android.googlesource.com/toolchain/llvm-project b397f81060ce6d701042b782172ed13bee898b79)) #1 SMP PREEMPT Thu Oct 8 03:49:54 UTC 2020"
+  version_group: "kernel-and-modules"
+  git_project: "device/google/coral-kernel"
+}
