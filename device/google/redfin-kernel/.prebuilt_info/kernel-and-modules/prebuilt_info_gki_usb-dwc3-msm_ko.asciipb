@@ -1,0 +1,11 @@
+drops {
+  android_build_drop {
+    build_id: "6656091"
+    target: "kernel_redbull-gki"
+    source_file: "usb-dwc3-msm.ko"
+  }
+  dest_file: "gki/usb-dwc3-msm.ko"
+  version: "Linux version 4.19.110-g35f36e63b172-ab6656091 (android-build@abfarm-01142) (Android (6443078 based on r383902) clang version 11.0.1 (https://android.googlesource.com/toolchain/llvm-project b397f81060ce6d701042b782172ed13bee898b79)) #1 SMP PREEMPT Mon Jul 6 18:19:53 UTC 2020"
+  version_group: "kernel-and-modules"
+  git_project: "device/google/redfin-kernel"
+}
