@@ -1,0 +1,96 @@
+nuplayer_defaults {
+    name: "nuplayer_default",
+    srcs: [
+        "AWakeLock.cpp",
+        "GenericSource.cpp",
+        "HTTPLiveSource.cpp",
+        "NuPlayer.cpp",
+        "NuPlayerCCDecoder.cpp",
+        "NuPlayerDecoder.cpp",
+        "NuPlayerDecoderBase.cpp",
+        "NuPlayerDecoderPassThrough.cpp",
+        "NuPlayerDriver.cpp",
+        "NuPlayerDrm.cpp",
+        "NuPlayerRenderer.cpp",
+        "NuPlayerStreamListener.cpp",
+        "RTSPSource.cpp",
+        "StreamingSource.cpp",
+        "ParsedMessage.cpp",
+        "ANetworkSession.cpp",
+        "GenericStreamSource.cpp",
+        "SessionManager.cpp",
+        "RTPSessionManager.cpp",
+        "UDPSessionManager.cpp",
+        "StreamingDataSource.cpp",
+        "NuPlayerDecoderPassThroughAC3.cpp",
+        "NuPlayerDecoderPassThroughDDP.cpp",
+    ],
+
+    header_libs: [
+        "libmediadrm_headers",
+        "libmediametrics_headers",
+        "media_plugin_headers",
+    ],
+
+    include_dirs: [
+        "frameworks/av/media/libstagefright",
+        "frameworks/av/media/libstagefright/httplive",
+        "frameworks/av/media/libstagefright/include",
+        "frameworks/av/media/libstagefright/mpeg2ts",
+        "frameworks/av/media/libstagefright/rtsp",
+        "frameworks/av/media/libstagefright/timedtext",
+    ],
+
+    cflags: [
+        "-Werror",
+        "-Wall",
+    ],
+
+    product_variables: {
+        debuggable: {
+            cflags: [
+                "-DENABLE_STAGEFRIGHT_EXPERIMENTS",
+            ],
+        }
+    },
+
+    shared_libs: [
+        "libbinder",
+        "libdatasource",
+        "libui",
+        "libgui",
+        "libmedia",
+        "libmediadrm",
+        "libpowermanager",
+    ],
+
+    static_libs: [
+        "libplayerservice_datasource",
+    ],
+
+
+    sanitize: {
+        cfi: true,
+    },
+
+}
+bootstrap_go_package {
+    name: "soong-nuplayer",
+    pkgPath: "android/soong/frameworks/av/media/libmediaplayerservice/nuplayer",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "nuplayer.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+cc_library_static {
+    name: "libstagefright_nuplayer",
+    defaults: ["nuplayer_default"],
+}
