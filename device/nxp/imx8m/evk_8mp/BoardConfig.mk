@@ -116,7 +116,7 @@ TARGET_USES_MKE2FS := true
 
 CMASIZE=800M
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7 enforcing=0 androidboot.selinux=permissive
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
