@@ -6,6 +6,9 @@ IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mp
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
+# add for car
+$(call inherit-product, device/generic/car/common/car.mk)
+
 -include device/nxp/common/imx_path/ImxPathConfig.mk
 include device/nxp/imx8m/ProductConfigCommon.mk
 
