@@ -1,3 +1,3 @@
 # OK8MP-android
 
-## adapta this board to automotive
+## adapt this board to automotive
